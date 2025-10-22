@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+}
+
+.categorie {
+  width: 200px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  height: 100vh;
+}
+
+.categorie h3 {
+  margin-top: 0;
+}
+
+.categorie ul {
+  list-style: none;
+  padding: 0;
+}
+
+.categorie ul li {
+  margin: 10px 0;
+}
+.subcategorie {
+  margin: 10px;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+}
+
+.navbar .logo {
+  flex: 1;
+  text-align: left;
+}
+
+.navbar .center-nav {
+  flex: 2;
+  text-align: center;
+}
+
+.navbar .center-nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar .right-nav {
+  flex: 1;
+  text-align: right;
+}
+
+.navbar .right-nav input {
+  padding: 5px;
+}
+
+.content {
+  padding: 20px;
+}
