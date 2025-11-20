@@ -24,12 +24,12 @@
 
     <div class="main">
       <div class="categorie">
-        <h3>Categorieën</h3>
+        <h3>CATEGORIEËN</h3>
         <ul>
           <li>
             Categorie 1
             <ul class="subcategorie">
-              <li>Subcategorie</li>
+              <li>Subcategorssie</li>
             </ul>
           </li>
 
@@ -43,9 +43,9 @@
         <div class="products">
           <div class="product-card">
             <img src="img/bestekLade_Black.jpg" alt="Product 1" />
-            <h3>Besteklade</h3>
-            <p>€49,99</p>
-            <button class="btn primary">In winkelwagen</button>
+            <h3>Steel Sally (Werkbestek)</h3>
+            <p>€98,50</p>
+            <h2>Bekijk meer</h2>
           </div>
       </div>
     </div>
