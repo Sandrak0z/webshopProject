@@ -10,14 +10,15 @@
     <nav class="navbar">
       <div class="logo"><img src="img/logoVnhoecke.png" alt="logo" /></div>
       <div class="center-nav">
-        <a href="#">Werken bij</a>
-        <a href="#">Services</a>
-        <a href="#">Producten</a>
-        <a href="#">Duurzaamheid</a>
+        <a href="https://www.vanhoecke.be/nl/producten">Producten</a>
+        <a href="https://www.vanhoecke.be/nl/services">Services</a>
+        <a href="https://www.vanhoecke.be/nl/maatschappelijk-verantwoord-ondernemen-0">Duurzaamheid</a>
+        <a href="https://www.vanhoecke.be/nl/werken-bij-van-hoecke">Werken bij ons</a>
+        <a href="#">Shop</a>
       </div>
       <div class="right-nav">
-        <button>Aanmelden</button>
-        <button>🛍️</button>
+        <button class="primarybtn"><img src="img/pct_aanmelden.png" alt=""></button>
+        <button class="primarybtn"><img id="shoppingcart" src="img/pct_winkelmandje.png" alt=""></button>
       </div>
     </nav>
 
@@ -39,6 +40,13 @@
       <div class="content">
         <h1>Welkom bij onze webshop!</h1>
         <p>Bekijk onze producten en ontdek onze duurzame services.</p>
+        <div class="products">
+          <div class="product-card">
+            <img src="img/bestekLade_Black.jpg" alt="Product 1" />
+            <h3>Besteklade</h3>
+            <p>€49,99</p>
+            <button class="btn primary">In winkelwagen</button>
+          </div>
       </div>
     </div>
   </body>
