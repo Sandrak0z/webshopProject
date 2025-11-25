@@ -8,21 +8,8 @@
     <link rel="stylesheet" href="css/main.css" />
 
   </head>
-  <body>
-    <nav class="navbar">
-      <div class="logo"><img src="img/logoVnhoecke.png" alt="logo" /></div>
-      <div class="center-nav">
-        <a href="https://www.vanhoecke.be/nl/producten">Producten</a>
-        <a href="https://www.vanhoecke.be/nl/services">Services</a>
-        <a href="https://www.vanhoecke.be/nl/maatschappelijk-verantwoord-ondernemen-0">Duurzaamheid</a>
-        <a href="https://www.vanhoecke.be/nl/werken-bij-van-hoecke">Werken bij ons</a>
-        <a href="#">Shop</a>
-      </div>
-      <div class="right-nav">
-        <button class="primarybtn"><img src="img/pct_aanmelden.png" alt=""></button>
-        <button class="primarybtn"><img id="shoppingcart" src="img/pct_winkelmandje.png" alt=""></button>
-      </div>
-    </nav>
+  <body>  <?php include_once("nav.inc.php"); ?>
+
 
     <div class="main">
       <div class="categorie">

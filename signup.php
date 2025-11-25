@@ -8,20 +8,8 @@
     <link rel="stylesheet" href="css/auth.css">
 
 </head>
-<nav class="navbar">
-      <div class="logo"><img src="img/logoVnhoecke.png" alt="logo" /></div>
-      <div class="center-nav">
-        <a href="https://www.vanhoecke.be/nl/producten">Producten</a>
-        <a href="https://www.vanhoecke.be/nl/services">Services</a>
-        <a href="https://www.vanhoecke.be/nl/maatschappelijk-verantwoord-ondernemen-0">Duurzaamheid</a>
-        <a href="https://www.vanhoecke.be/nl/werken-bij-van-hoecke">Werken bij ons</a>
-        <a href="#">Shop</a>
-      </div>
-      <div class="right-nav">
-        <button class="primarybtn"><img src="img/pct_aanmelden.png" alt=""></button>
-        <button class="primarybtn"><img id="shoppingcart" src="img/pct_winkelmandje.png" alt=""></button>
-      </div>
-    </nav>
+<?php include_once("nav.inc.php"); ?>
+
 <body>
 
 
@@ -31,10 +19,10 @@
 
     <form>
 
-        <label for="firstname">Voornaam</label>
+        <label for="firstname">Voornaam </label>
         <input type="text" id="firstname">
 
-        <label for="lastname">Achternaam</label>
+        <label for="lastname">Achternaam </label>
         <input type="text" id="lastname">
 
         <label for="email">E-mailadres</label>
