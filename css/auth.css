@@ -33,7 +33,7 @@
   font-size: 16px;
 }
 
-.form-container button {
+.sign-btn {
   margin-top: 20px;
   padding: 12px;
   background-color: rgb(200, 69, 69);
@@ -71,4 +71,21 @@
   .form-container h2 {
     font-size: 20px;
   }
+}
+.form-container p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #5e5e5e;
+}
+
+.form-container p a {
+  color: rgb(200, 69, 69);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-container p a:hover {
+  text-decoration: underline;
+  color: rgb(214, 44, 44);
 }

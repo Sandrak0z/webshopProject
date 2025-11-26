@@ -17,7 +17,7 @@
 
     <h2>Maak een account aan</h2>
 
-    <form>
+    <form action="" method="post">
 
         <label for="firstname">Voornaam </label>
         <input type="text" id="firstname">
@@ -34,7 +34,9 @@
         <label for="confirmpassword">Bevestig wachtwoord</label>
         <input type="password" id="confirmpassword">
 
-        <button type="submit">Account aanmaken</button>
+        <input type="submit" value="Account aanmaken" class="sign-btn">	
+
+        <p>Heb je al een account? <a href="login.php">Log in</a></p>
 
     </form>
 
