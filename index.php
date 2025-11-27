@@ -30,13 +30,15 @@
         <h1>Welkom bij onze webshop!</h1>
         <p>Bekijk onze producten en ontdek onze duurzame services.</p>
         <div class="products">
+          
           <div class="product-card">
+            <a href="productDetails.php">
             <img src="img/bestekLade_Black.jpg" alt="Product 1" />
             <h3>Steel Sally (Werkbestek)</h3>
             <p>€98,50</p>
-            <h2>Bekijk meer</h2>
-          </div>
-      </div>
+            <h2>Bekijk meer</h2></a>
+          </div>   
+        </div>
     </div>
   </body>
 </html>

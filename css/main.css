@@ -31,13 +31,13 @@
 
 .content {
   padding: 20px;
-  overflow-y: auto;
+  width: 100%;
 }
 
 .products {
   display: grid;
-  gap: 20px;
-  margin-top: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 10px;
 }
 
 .product-card {
@@ -56,6 +56,11 @@
   border-radius: 10px 10px 0px 0px;
 }
 
+.product-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
 .product-card h3 {
   font-size: 16px;
   padding-left: 17px;
@@ -70,4 +75,113 @@
   color: #ababab;
   font-size: 16px;
   padding-left: 17px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.image-section {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #e4e4e4;
+}
+
+.main-image {
+  width: 100%;
+  height: 450px;
+  background: #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  background-size: cover;
+  background-position: center;
+}
+
+.images-row {
+  display: flex;
+  gap: 10px;
+}
+
+.images {
+  width: 80px;
+  height: 80px;
+  background: #ccc;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.images:hover {
+  border-color: #ce3216;
+}
+
+.details {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #e4e4e4;
+}
+
+.brand {
+  color: #7b7b7b;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+h1 {
+  margin: 0 0 10px 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.in-stock {
+  color: #24a746;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.out-stock {
+  color: #f02121;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.dropdown {
+  margin-top: 20px;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.quantity {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity input {
+  width: 60px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
