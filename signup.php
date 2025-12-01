@@ -16,6 +16,9 @@ if(!empty($_POST)) {
     catch (\throwable $th) {
     $error = $th->getMessage();
 }
+$user->save();
+$success = "user saved";
+
 }
 
 

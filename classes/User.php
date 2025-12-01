@@ -62,7 +62,30 @@ class User {
         return $this->password;
     }
 
+    public function save() {
+        //conn
+        $conn = Db::getConnection();
+        //insert query
 
+        $statement = $conn->prepare("
+            INSERT INTO users (firstName, lastName, email, password) 
+            VALUES (:firstname, :lastname, :email, :password)
+        ");
+
+        $firstname = $this->getFirstname();
+        $lastname = $this->getLastname();
+        $email = $this->getEmail();
+        $password = $this->getPassword();
+
+
+        $statement->bindValue(":firstname", $firstname);
+        $statement->bindValue(":lastname", $lastname);
+        $statement->bindValue(":email", $email);
+        $statement->bindValue(":password", $password);
+
+        $result= $statement->execute();
+        return $result;
+    }
     
    
 }
