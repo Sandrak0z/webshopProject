@@ -1,3 +1,26 @@
+<?php
+include_once(__DIR__. "/classes/User.php");
+
+
+if(!empty($_POST)) {
+    
+    try {
+    $user = new User();
+    $user->setFirstname ($_POST['firstname']);
+    $user->setLastname ($_POST["lastname"]);
+    $user->setEmail ($_POST["email"]);
+    $user->setPassword ($_POST["password"]);
+
+
+    }
+    catch (\throwable $th) {
+    $error = $th->getMessage();
+}
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
