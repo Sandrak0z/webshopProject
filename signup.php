@@ -20,16 +20,16 @@
     <form action="" method="post">
 
         <label for="firstname">Voornaam </label>
-        <input type="text" id="firstname">
+        <input type="text" id="firstname" name="firstname">
 
         <label for="lastname">Achternaam </label>
-        <input type="text" id="lastname">
+        <input type="text" id="lastname" name="lastname">
 
         <label for="email">E-mailadres</label>
-        <input type="email" id="email">
+        <input type="email" id="email" name="email">
 
         <label for="password">Wachtwoord</label>
-        <input type="password" id="password">
+        <input type="password" id="password" name="password">
 
         <label for="confirmpassword">Bevestig wachtwoord</label>
         <input type="password" id="confirmpassword">
