@@ -23,7 +23,7 @@
         <input type="email" id="email" name="email">
 
         <label for="password">Wachtwoord</label>
-        <input type="password" id="password">
+        <input type="password" id="password" name="password">
 
         <input type="submit" value="Log in" class="sign-btn">	
  
