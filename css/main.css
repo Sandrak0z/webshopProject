@@ -1,5 +1,5 @@
 .categorie {
-  width: 200px;
+  width: 400px;
   padding: 20px;
   height: 100vh;
   background-color: #ffffff;
@@ -17,6 +17,19 @@
 
 .categorie ul li {
   margin: 2px 0;
+}
+
+.categorie li a {
+  display: block;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  border-radius: 5px;
+  padding-bottom: 20px;
+}
+
+.categorie li a:hover {
+  color: #dd2413;
 }
 
 .subcategorie {
