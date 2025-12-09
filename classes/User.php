@@ -33,16 +33,11 @@ class User {
      */
 
     public function setPassword($password) {
+        if (strlen($password) < 7) {
+            throw new Exception("Wachtwoord moet minstens 7 tekens hebben.");
+        }
         $this->password = $password;
     }
-        /**
-     * Get the value of confirmpassword
-     */ 
-    public function getConfirmpassword()
-    {
-        return $this->confirmpassword;
-    }
-
     /**
      * Set the value of confirmpassword
      *
@@ -54,6 +49,15 @@ class User {
 
         return $this;
     }
+
+         /**
+     * Get the value of confirmpassword
+     */ 
+    public function getConfirmpassword()
+    {
+        return $this->confirmpassword;
+    }
+
 
 
     /**
@@ -98,6 +102,10 @@ class User {
 
     public function save() {
         $this->validate();
+        $options = [
+            'cost' => 15,
+        ];
+        $hashedPassword = password_hash($this->password, PASSWORD_BCRYPT, $options);
         //conn
         $conn = Db::getConnection();
         //insert query
@@ -116,7 +124,7 @@ class User {
         $statement->bindValue(":firstname", $firstname);
         $statement->bindValue(":lastname", $lastname);
         $statement->bindValue(":email", $email);
-        $statement->bindValue(":password", $password);
+        $statement->bindValue(":password", $hashedPassword);
 
         $result= $statement->execute();
         return $result;

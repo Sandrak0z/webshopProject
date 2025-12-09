@@ -7,16 +7,18 @@ if(!empty($_POST)) {
 
     try {
     $user = new User();
-    $user->setFirstname ($_POST['firstname']);
-    $user->setLastname ($_POST["lastname"]);
-    $user->setEmail ($_POST["email"]);
+    $user->setFirstname(htmlspecialchars(trim($_POST['firstname'])));
+    $user->setLastname(htmlspecialchars(trim($_POST['lastname'])));
+    $user->setEmail (trim($_POST["email"]));
     $user->setPassword ($_POST["password"]);
     $user->setConfirmpassword($_POST["confirmpassword"]); 
 
 
     $user->save();
+    header("Location: login.php");
+        exit;
     }
-    catch (\throwable $th) {
+    catch (\Throwable $th) {
     $error = $th->getMessage();
 }}
 
@@ -41,6 +43,7 @@ if(!empty($_POST)) {
 <div class="form-container">
 
     <h2>Maak een account aan</h2>
+    
     <?php if(!empty($error)) : ?>
         <div class="message error"><?= $error ?></div>
 <?php endif; ?>

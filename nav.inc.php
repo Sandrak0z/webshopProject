@@ -3,8 +3,6 @@
       <div class="center-nav">
         <a href="https://www.vanhoecke.be/nl/producten">Producten</a>
         <a href="https://www.vanhoecke.be/nl/services">Services</a>
-        <a href="https://www.vanhoecke.be/nl/maatschappelijk-verantwoord-ondernemen-0">Duurzaamheid</a>
-        <a href="https://www.vanhoecke.be/nl/werken-bij-van-hoecke">Werken bij ons</a>
         <a href="#">Shop</a>
       </div>
       <div class="right-nav">
