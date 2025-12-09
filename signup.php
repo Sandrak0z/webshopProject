@@ -1,25 +1,24 @@
 <?php
 include_once(__DIR__. "/classes/User.php");
 
+$error = "";
 
-if(!empty($_POST)) {
-    
+if(!empty($_POST)) {  
+
     try {
     $user = new User();
     $user->setFirstname ($_POST['firstname']);
     $user->setLastname ($_POST["lastname"]);
     $user->setEmail ($_POST["email"]);
     $user->setPassword ($_POST["password"]);
+    $user->setConfirmpassword($_POST["confirmpassword"]); 
 
 
+    $user->save();
     }
     catch (\throwable $th) {
     $error = $th->getMessage();
-}
-$user->save();
-$success = "user saved";
-
-}
+}}
 
 
 
@@ -42,6 +41,10 @@ $success = "user saved";
 <div class="form-container">
 
     <h2>Maak een account aan</h2>
+    <?php if(!empty($error)) : ?>
+        <div class="message error"><?= $error ?></div>
+<?php endif; ?>
+
 
     <form action="" method="post">
 
@@ -58,7 +61,7 @@ $success = "user saved";
         <input type="password" id="password" name="password">
 
         <label for="confirmpassword">Bevestig wachtwoord</label>
-        <input type="password" id="confirmpassword">
+        <input type="password" id="confirmpassword" name="confirmpassword">
 
         <input type="submit" value="Account aanmaken" class="sign-btn">	
 

@@ -89,3 +89,13 @@
   text-decoration: underline;
   color: rgb(214, 44, 44);
 }
+
+.message.error {
+  background-color: #999999;
+  color: white;
+  font-weight: lighter;
+  padding: 0.7em 1em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+  border-radius: 10px;
+}

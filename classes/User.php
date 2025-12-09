@@ -6,6 +6,7 @@ class User {
     private $lastname;
     private $email;
     private $password;
+    private $confirmpassword;
 
 
     /**
@@ -34,6 +35,26 @@ class User {
     public function setPassword($password) {
         $this->password = $password;
     }
+        /**
+     * Get the value of confirmpassword
+     */ 
+    public function getConfirmpassword()
+    {
+        return $this->confirmpassword;
+    }
+
+    /**
+     * Set the value of confirmpassword
+     *
+     * @return  self
+     */ 
+    public function setConfirmpassword($confirmpassword)
+    {
+        $this->confirmpassword = $confirmpassword;
+
+        return $this;
+    }
+
 
     /**
      * / Get the value of firstname
@@ -62,7 +83,21 @@ class User {
         return $this->password;
     }
 
+    public function validate() {
+        if (empty($this->firstname) || empty($this->lastname) || empty($this->email) || empty($this->password) || empty($this->confirmpassword)) {
+            throw new Exception("Vul alle velden in.");
+        }
+
+        if ($this->password !== $this->confirmpassword) {
+            throw new Exception("De wachtwoorden komen niet overeen.");
+        }
+
+        return true;
+    }
+
+
     public function save() {
+        $this->validate();
         //conn
         $conn = Db::getConnection();
         //insert query
@@ -85,7 +120,4 @@ class User {
 
         $result= $statement->execute();
         return $result;
-    }
-    
-   
-}
+    }}
