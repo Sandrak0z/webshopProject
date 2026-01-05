@@ -1,4 +1,11 @@
 <?php
+session_start();
+include_once(__DIR__ . "/classes/Product.php");
+
+$productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+$product = Product::getById($productId);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +24,10 @@
     <div class="container">
 
         <div class="image-section">
-            <div class="main-image"></div>
+            
+        <div class="main-image"
+             style="background-image:url('<?= htmlspecialchars($product['Image']) ?>')">
+        </div>
 
             <div class="images-row">
                 <div class="images"></div>
@@ -27,11 +37,27 @@
         </div>
 
         <div class="details">
-            <div class="brand">vanhoecke</div>
-            <h1>Wood Oak (Bestek)</h1>
+        <div class="brand"><?= htmlspecialchars($product['Brand']) ?></div>
+        <h1><?= htmlspecialchars($product['ProductName']) ?></h1>
 
-            <div class="price">€167,00 – €221,00 <span class="in-stock">• Op voorraad</span></div>
 
+        <div class="price">
+            €<?= number_format($product['Price'], 2, ',', '.') ?>
+            <?php if ($product['Stock'] > 0): ?>
+                <span class="in-stock">• Op voorraad</span>
+            <?php else: ?>
+                <span class="out-stock">• Niet op voorraad</span>
+            <?php endif; ?>
+        </div>
+
+        <?php if (!empty($product['depths'])): ?>
+    <select>
+        <?php foreach ($product['depths'] as $depth): ?>
+            <option><?= htmlspecialchars(trim($depth)) ?> mm</option>
+        <?php endforeach; ?>
+    </select>
+<?php endif; ?>
+        <!--
             <div class="dropdown">
                 <label for="depth">Diepte (mm)</label>
                 <select id="depth">
@@ -40,17 +66,29 @@
                     <option value="150">150 mm</option>
                     <option value="200">200 mm</option>
                 </select>
-            </div>
-
+            </div> -->
+            <form method="post" action="addToCart.php">
             <div class="quantity">
                 <input type="number" value="1" min="1" />
                 <input type="submit" value="Toevoegen aan winkelwagen" class="primary-btn" />
             </div>
+            </form>
 
             <div class="material-section">
                 <h3>Materiaal & kleurkeuze</h3>
 
+                
                 <div class="material-row">
+                <?php if (!empty($product['colors'])): ?>
+    <div class="colors">
+        <?php foreach ($product['colors'] as $color): ?>
+            <label>
+                <input type="radio" name="color">
+                <span class="<?= htmlspecialchars(trim($color)) ?>"></span>
+            </label>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 
                     <div class="material-group">
                         <h4>Houtdecor</h4>
