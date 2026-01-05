@@ -282,3 +282,6 @@ input[type="radio"]:checked {
   outline: 3px solid #e24f4a;
   outline-offset: 2px;
 }
+.error-message {
+  color: red;
+}

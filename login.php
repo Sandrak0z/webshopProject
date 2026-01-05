@@ -1,3 +1,30 @@
+<?php
+session_start();
+include_once(__DIR__. "/classes/User.php");
+
+$error = "";
+
+if (!empty($_POST)) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $user = User::login($email, $password);
+
+    if ($user) {
+        $_SESSION['user_id']   = $user['customerId']; 
+        $_SESSION['user_name'] = $user['firstName'];  
+        $_SESSION['role']      = $user['role'];       
+        $_SESSION['coins']     = $user['coins'];      
+    
+        header("Location: index.php");
+        exit();
+    }
+
+     else {
+        $error = "E-mail of wachtwoord is onjuist.";
+        }}
+
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -25,8 +52,15 @@
         <label for="password">Wachtwoord</label>
         <input type="password" id="password" name="password">
 
-        <input type="submit" value="Log in" class="sign-btn">	
- 
+        <?php if(!empty($error)): ?>
+        <div class="error-message">
+            <?php echo $error; ?>
+        </div>
+    <?php endif; ?>
+
+        <input type="submit" value="Log in" class="sign-btn">
+
+    
         <p>Heb je nog geen account? <a href="signup.php">Maak aan</a></p>
 
 

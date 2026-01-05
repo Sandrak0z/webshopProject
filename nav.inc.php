@@ -6,9 +6,22 @@
         <a href="#">Shop</a>
       </div>
       <div class="right-nav">
-    <a href="signup.php" class="primarybtn">
-      <img src="img/pct_aanmelden.png" alt="Aanmelden">
-    </a>
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <div class="user-info">
+            <span class="userName">Welkom, <strong><?php echo htmlspecialchars($_SESSION['user_name']); ?></strong></span>
+            <span cclass="userCoins">€ <?php echo $_SESSION['coins']; ?></span>
+        </div>
+
+        <?php if ($_SESSION['role'] === 'admin'): ?>
+            <a href="admin.php" class="admin-link">Admin</a>
+        <?php endif; ?>
+
+        <a href="logout.php" class="primarybtn">Uitloggen</a>
+    <?php else: ?>
+        <a href="login.php" class="primarybtn">
+            <img src="img/pct_aanmelden.png" alt="Aanmelden">
+        </a>
+    <?php endif; ?>
 
     <a href="cart.php" class="primarybtn">
       <img id="shoppingcart" src="img/pct_winkelmandje.png" alt="Winkelmandje">
