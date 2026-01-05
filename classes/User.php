@@ -104,7 +104,7 @@ class User {
         //insert query
 
         $statement = $conn->prepare("
-            INSERT INTO users (firstName, lastName, email, password, role, coins) 
+            INSERT INTO user (firstName, lastName, email, password, role, coins) 
             VALUES (:firstname, :lastname, :email, :password,'user', 100.00)
         ");
 
@@ -124,7 +124,7 @@ class User {
     }
     public static function login($email, $password) {
         $conn = Db::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->bindValue(":email", $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -135,7 +135,5 @@ class User {
         
         if (password_verify($password, $user['password'])) {
             return $user;
-        } else {
-            
-            die(" Wachtwoord matcht NIET met de hash");
-        }}}
+        } 
+        }}

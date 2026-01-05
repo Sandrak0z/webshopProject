@@ -365,3 +365,7 @@ input[type="radio"]:checked {
   color: #555;
   margin-top: 15px;
 }
+.legeWinkelwagen {
+  padding: 20px;
+  text-align: center;
+}

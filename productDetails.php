@@ -68,11 +68,13 @@ $product = Product::getById($productId);
                 </select>
             </div> -->
             <form method="post" action="addToCart.php">
-            <div class="quantity">
-                <input type="number" value="1" min="1" />
-                <input type="submit" value="Toevoegen aan winkelwagen" class="primary-btn" />
-            </div>
-            </form>
+    <input type="hidden" name="productId" value="<?= htmlspecialchars($product['ProductId']) ?>">
+    
+    <div class="quantity">
+    <input type="number" name="quantity" value="1" min="1" max="100" />        
+    <input type="submit" value="Toevoegen aan winkelwagen" class="primary-btn" />
+    </div>
+</form>
 
             <div class="material-section">
                 <h3>Materiaal & kleurkeuze</h3>

@@ -1,5 +1,15 @@
 <?php
 session_start();
+include_once(__DIR__ . "/classes/Product.php");
+
+if (isset($_SESSION['cart'])) {
+    $cart = $_SESSION['cart'];
+} else {
+    $cart = [];
+}
+$cartIds = array_keys($cart);
+
+$totalPrice = 0;
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -21,25 +31,43 @@ session_start();
                     <tr>
                         <th>Product</th>
                         <th style="text-align: center;">Aantal</th>
+                        <th style="text-align: right;">Prijs</th>
                         <th style="text-align: right;">Actie</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="product-info">
-                            <img src="img/example-product.png" alt="Product">
-                            <div>
-                                <p class="brand">Blum</p>
-                                <p><strong>Legrabox Lade</strong></p>
-                            </div>
-                        </td>
-                        <td style="text-align: center;">
-                            <span class="qty-display">1x</span>
-                        </td>
-                        <td style="text-align: right;">
-                            <a href="#" class="remove-item">Verwijderen</a>
-                        </td>
-                    </tr>
+                    <?php if (!empty($cartItems)): ?>
+                        <?php foreach ($cartItems as $item): 
+                            $qty = $cart[$item['ProductId']]; 
+                            $subtotal = $item['Price'] * $qty;
+                            $totalPrice += $subtotal; 
+                        ?>
+                        <tr>
+                            <td class="product-info">
+                                <img src="<?= htmlspecialchars($item['Image']) ?>" alt="Product">
+                                <div>
+                                    <p class="brand"><?= htmlspecialchars($item['Brand']) ?></p>
+                                    <p><strong><?= htmlspecialchars($item['ProductName']) ?></strong></p>
+                                </div>
+                            </td>
+                            <td style="text-align: center;">
+                                <span class="qty-display"><?= $qty ?>x</span>
+                            </td>
+                            <td style="text-align: right;">
+                                € <?= number_format($subtotal, 2, ',', '.') ?>
+                            </td>
+                            <td style="text-align: right;">
+                                <a href="removeFromCart.php?id=<?= $item['ProductId'] ?>" class="remove-item">✕</a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td>
+                                Je winkelwagen is leeg.
+                            </td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
@@ -48,7 +76,7 @@ session_start();
             <h2>Overzicht</h2>
             <div class="summary-row">
                 <span>Subtotaal</span>
-                <span>€ 45,00</span>
+                <span>€ <?= number_format($totalPrice, 2, ',', '.') ?></span>
             </div>
             <div class="summary-row">
                 <span>Verzendkosten</span>
@@ -57,10 +85,12 @@ session_start();
             <hr>
             <div class="summary-row total">
                 <span>Totaal</span>
-                <span>€ 45,00</span>
+                <span>€ <?= number_format($totalPrice, 2, ',', '.') ?></span>
             </div>
             
-            <button class="primary-btn checkout-btn">Afrekenen</button>
+            <form action="placeOrder.php" method="POST">
+                <button type="submit" class="primary-btn checkout-btn">Afrekenen</button>
+            </form>
             <p class="coins-notice">Je huidige saldo: <strong>€ <?= number_format($_SESSION['coins'] ?? 0, 2, ',', '.'); ?></strong></p>
         </div>
     </div>

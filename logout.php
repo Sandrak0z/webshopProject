@@ -1,5 +1,6 @@
 <?php
 session_start();
-session_destroy(); 
-header("Location: login.php"); 
+unset($_SESSION['cart']); 
+session_destroy();
+header("Location: login.php");
 exit();

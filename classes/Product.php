@@ -74,4 +74,31 @@ class Product {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public static function getCartDetails(array $ids): array {
+        if (empty($ids)) {
+            return array();
+        } else {
+            $conn = Db::getConnection();
+    
+            $vraagtekens = "";
+            $teller = 0;
+    
+            foreach ($ids as $id) {
+                if ($teller == 0) {
+                    $vraagtekens = $vraagtekens . "?";
+                } else {
+                    $vraagtekens = $vraagtekens . ",?";
+                }
+                $teller = $teller + 1;
+            }
+    
+            $sql = "SELECT * FROM Products WHERE ProductId IN (" . $vraagtekens . ")";
+            $stmt = $conn->prepare($sql);
+    
+            $stmt->execute($ids);
+            $resultaten = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+            return $resultaten;
+        }
+    }
 }
