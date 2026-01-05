@@ -80,12 +80,6 @@ class User {
         return $this->email;
     }
 
-    /**
-     * / Get the value of password
-     */
-    public function getPassword() {
-        return $this->password;
-    }
 
     public function validate() {
         if (empty($this->firstname) || empty($this->lastname) || empty($this->email) || empty($this->password) || empty($this->confirmpassword)) {
@@ -105,20 +99,19 @@ class User {
         $options = [
             'cost' => 15,
         ];
-        $hashedPassword = password_hash($this->password, PASSWORD_BCRYPT, $options);
         //conn
         $conn = Db::getConnection();
         //insert query
 
         $statement = $conn->prepare("
-            INSERT INTO users (firstName, lastName, email, password) 
-            VALUES (:firstname, :lastname, :email, :password)
+            INSERT INTO users (firstName, lastName, email, password, role, coins) 
+            VALUES (:firstname, :lastname, :email, :password,'user', 100.00)
         ");
 
         $firstname = $this->getFirstname();
         $lastname = $this->getLastname();
         $email = $this->getEmail();
-        $password = $this->getPassword();
+        $hashedPassword = password_hash($this->password, PASSWORD_BCRYPT, $options);
 
 
         $statement->bindValue(":firstname", $firstname);
@@ -128,4 +121,21 @@ class User {
 
         $result= $statement->execute();
         return $result;
-    }}
+    }
+    public static function login($email, $password) {
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindValue(":email", $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if (!$user) { 
+            die("STOP: E-mail niet gevonden in de database."); 
+        } 
+        
+        if (password_verify($password, $user['password'])) {
+            return $user;
+        } else {
+            
+            die(" Wachtwoord matcht NIET met de hash");
+        }}}
