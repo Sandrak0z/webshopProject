@@ -1,5 +1,5 @@
 <?php
-const SETTINGS = [
+define('SETTINGS', [
     "db" => [
         "host"     => getenv('MYSQLHOST') ?: "localhost",
         "dbname"   => getenv('MYSQLDATABASE') ?: "vhWebshop",
@@ -7,4 +7,4 @@ const SETTINGS = [
         "password" => getenv('MYSQLPASSWORD') ?: "",
         "port"     => getenv('MYSQLPORT') ?: "3306",
     ]
-];
+]);
