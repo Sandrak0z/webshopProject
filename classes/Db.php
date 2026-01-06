@@ -4,11 +4,18 @@ class Db{
     public static function getConnection(){
         include_once(__DIR__."/../settings/settings.php");
         if(self::$conn == null){ 
-            self::$conn = new PDO('mysql:host='. SETTINGS['db']['host'] .';dbname=' . SETTINGS['db']['dbname'], SETTINGS['db']['user'], SETTINGS['db']['password']);
+            $dsn = 'mysql:host=' . SETTINGS['db']['host'] . 
+                   ';port=' . SETTINGS['db']['port'] . 
+                   ';dbname=' . SETTINGS['db']['dbname'];
+
+            try {
+                self::$conn = new PDO($dsn, SETTINGS['db']['user'], SETTINGS['db']['password']);
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                return self::$conn;
+            } catch (PDOException $e) {
+                die("Connectie mislukt: " . $e->getMessage());
+            }
+        } else {
             return self::$conn;
-    }else{
-        return self::$conn;
-
-
-    }
+        }
 }};
