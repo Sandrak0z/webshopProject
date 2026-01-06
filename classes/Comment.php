@@ -68,4 +68,20 @@ class Comment {
         return $this;
     }
 
+    public function save() {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("INSERT INTO comments (text, productId, userId) VALUES (:text, :productId, :userId)");
+        
+        $text = $this->getText();
+        $userId = $this->getUserId();
+        $productId = $this->getProductId();
+
+
+        $statement->bindValue(":text", $this->getText());
+        $statement->bindValue(":productId", $this->getProductId());
+        $statement->bindValue(":userId", $this->getUserId());
+
+        $result= $statement->execute();
+        return $result;
+    }
 }

@@ -122,7 +122,7 @@ $product = Product::getById($productId);
 
     <div class="commentForm">
         <textarea id="commentText" placeholder="Wat vind je van dit product?"></textarea>
-        <button id="btnAddComment" class="primary-btn" productId="<?= $product['ProductId']; ?>" >Verstuur</button>
+        <button id="btnAddComment" class="primary-btn" data-post-id="<?= $product['ProductId']; ?>" >Verstuur</button>
     </div>
 </div>
 <script src="comments.js"></script>
