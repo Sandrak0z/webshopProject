@@ -12,7 +12,18 @@ document.querySelector("#btnAddComment").addEventListener("click", function () {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log("Success:", result);
+      let newComment = document.createElement("div");
+      newComment.classList.add("comment-item");
+      newComment.innerHTML = `
+                  <div class="comment-content">
+                      <strong>Jij:</strong>
+                      <p>${result.body}</p>
+                  </div>
+              `;
+
+      document.querySelector("#comment-list").prepend(newComment);
+
+      document.querySelector("#commentText").value = "";
     })
     .catch((error) => {
       console.error("Error:", error);
