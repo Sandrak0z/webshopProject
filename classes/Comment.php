@@ -93,6 +93,7 @@ class Comment {
                                  WHERE productId = :productId 
                                  ORDER BY comments.Id DESC");
         $statement->bindValue(":productId", $productId, PDO::PARAM_INT);
+        $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }

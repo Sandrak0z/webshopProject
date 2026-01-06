@@ -6,7 +6,7 @@
         <a href="#">Shop</a>
       </div>
       <div class="right-nav">
-      <?php if (isset($_SESSION['user_id'])): ?>
+      <?php if (isset($_SESSION['userId'])): ?>
         <div class="user-info">
             <span class="userName">Welkom, <strong><?php echo htmlspecialchars($_SESSION['user_name']); ?></strong></span>
             <span cclass="userCoins">€ <?php echo $_SESSION['coins']; ?></span>
