@@ -18,4 +18,5 @@ class Db{
         } else {
             return self::$conn;
         }
-}};
+    }
+}
