@@ -116,6 +116,16 @@ $product = Product::getById($productId);
         </div>
 
     </div>
+    <div class="commentSection">
+    <h3>Laat een reactie achter</h3>
+    <div id="comment-list">
+        </div>
+
+    <div class="commentForm">
+        <textarea id="comment-text" placeholder="Wat vind je van dit product?"></textarea>
+        <button id="btnAddComment" class="primary-btn">Verstuur</button>
+    </div>
+</div>
 
 </body>
 </html>
