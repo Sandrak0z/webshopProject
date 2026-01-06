@@ -89,7 +89,7 @@ class Comment {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT comments.*, user.firstName 
                                  FROM comments 
-                                 JOIN user ON comments.userId = user.customerId 
+                                 LEFT JOIN user ON comments.userId = user.customerId 
                                  WHERE productId = :productId 
                                  ORDER BY comments.Id DESC");
         $statement->bindValue(":productId", $productId, PDO::PARAM_INT);

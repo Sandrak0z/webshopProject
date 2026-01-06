@@ -10,7 +10,7 @@ if (!empty($_POST)) {
     $c = new Comment();
     $c->setText($_POST["text"]);
     $c->setProductId($_POST["productId"]);
-    $c->setUserId($_SESSION['customerId']);
+    $c->setUserId($_SESSION["userId"]);
 
     $c->save();
     

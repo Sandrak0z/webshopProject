@@ -11,7 +11,7 @@ if (!empty($_POST)) {
     $user = User::login($email, $password);
 
     if ($user) {
-        $_SESSION['user_id']   = $user['customerId']; 
+        $_SESSION['userId']   = $user['customerId']; 
         $_SESSION['user_name'] = $user['firstName'];  
         $_SESSION['role']      = $user['role'];       
         $_SESSION['coins']     = $user['coins'];      
