@@ -123,7 +123,7 @@ $product = Product::getById($productId);
     <?php foreach($allComments as $c): ?>
         <div class="comment-item">
             <div class="comment-content">
-                <strong><?= htmlspecialchars($c['firstname']); ?>:</strong>
+                <strong><?= htmlspecialchars($c['firstName']); ?>:</strong>
                 <p><?= htmlspecialchars($c['text']); ?></p>
             </div>
         </div>
