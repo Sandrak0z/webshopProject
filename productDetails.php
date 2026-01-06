@@ -16,7 +16,6 @@ $product = Product::getById($productId);
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-
 <body>
 
     <?php include_once("nav.inc.php"); ?>
@@ -122,10 +121,10 @@ $product = Product::getById($productId);
         </div>
 
     <div class="commentForm">
-        <textarea id="comment-text" placeholder="Wat vind je van dit product?"></textarea>
-        <button id="btnAddComment" class="primary-btn">Verstuur</button>
+        <textarea id="commentText" placeholder="Wat vind je van dit product?"></textarea>
+        <button id="btnAddComment" class="primary-btn" productId="<?= $product['ProductId']; ?>" >Verstuur</button>
     </div>
 </div>
-
+<script src="comments.js"></script>
 </body>
 </html>
