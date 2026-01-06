@@ -1,2 +1,2 @@
 [variables]
-PHP_EXTENSIONS = "pdo_mysql"
+    PHP_EXTENSIONS = "pdo, pdo_mysql, mysqli"
