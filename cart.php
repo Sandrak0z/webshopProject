@@ -9,6 +9,8 @@ if (isset($_SESSION['cart'])) {
 }
 $cartIds = array_keys($cart);
 
+$cartItems = Product::getCartDetails($cartIds);
+
 $totalPrice = 0;
 ?>
 <!DOCTYPE html>

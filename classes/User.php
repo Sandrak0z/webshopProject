@@ -129,9 +129,6 @@ class User {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-        if (!$user) { 
-            die("STOP: E-mail niet gevonden in de database."); 
-        } 
         
         if (password_verify($password, $user['password'])) {
             return $user;
