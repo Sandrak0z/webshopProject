@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once(__DIR__ . "/classes/Product.php");
+include_once(__DIR__ . "/classes/Comment.php");
+$allComments = Comment::getAllByProductId($productId);
 
 $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
@@ -118,6 +120,14 @@ $product = Product::getById($productId);
     <div class="commentSection">
     <h3>Laat een reactie achter</h3>
     <div id="comment-list">
+    <?php foreach($allComments as $c): ?>
+        <div class="comment-item">
+            <div class="comment-content">
+                <strong><?= htmlspecialchars($c['firstname']); ?>:</strong>
+                <p><?= htmlspecialchars($c['text']); ?></p>
+            </div>
+        </div>
+    <?php endforeach; ?>
         </div>
 
     <div class="commentForm">

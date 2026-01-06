@@ -84,4 +84,14 @@ class Comment {
         $result= $statement->execute();
         return $result;
     }
+
+    public static function getAllByProductId($productId) {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT comments.*, user.firstName FROM comments 
+                                     JOIN user ON comments.userId = user.customerId 
+                                     WHERE productId = ? 
+                                     ORDER BY Id DESC");
+        $statement->execute([$productId]);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
