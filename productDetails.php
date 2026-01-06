@@ -2,11 +2,11 @@
 session_start();
 include_once(__DIR__ . "/classes/Product.php");
 include_once(__DIR__ . "/classes/Comment.php");
-$allComments = Comment::getAllByProductId($productId);
 
 $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 $product = Product::getById($productId);
+$allComments = Comment::getAllByProductId($productId);
 
 ?>
 <!DOCTYPE html>

@@ -92,7 +92,7 @@ class Comment {
                                  JOIN user ON comments.userId = user.customerId 
                                  WHERE productId = :productId 
                                  ORDER BY comments.Id DESC");
-        $statement->execute([$productId]);
+        $statement->bindValue(":productId", $productId, PDO::PARAM_INT);
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }
