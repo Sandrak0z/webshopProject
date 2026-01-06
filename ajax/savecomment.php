@@ -1,6 +1,10 @@
 <?php
 session_start();
+
 include_once(__DIR__ . "/../classes/Comment.php");
+
+$response = [];
+
 if (!empty($_POST)) {
 
     $c = new Comment();
@@ -10,12 +14,12 @@ if (!empty($_POST)) {
 
     $c->save();
     
-    $reponse = [
+    $response = [
             'status' => 'success',
             'body' => htmlspecialchars($c->getText()),
             'message' => 'Comment saved'
         ];
         header('Content-Type: application/json');
-        echo json_encode($reponse);
-    
+        echo json_encode($response);
+        exit();
 }
