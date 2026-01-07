@@ -9,12 +9,13 @@ if (!empty($_POST)) {
     $password = $_POST['password'];
 
     $user = User::login($email, $password);
-
+    
     if ($user) {
         $_SESSION['userId']   = $user['customerId']; 
         $_SESSION['user_name'] = $user['firstName'];  
         $_SESSION['role']      = $user['role'];       
-        $_SESSION['coins']     = $user['coins'];      
+        $_SESSION['coins']     = $user['coins'];   
+        $_SESSION['isAdmin']   = ($user['role'] === 'admin');
     
         header("Location: index.php");
         exit();

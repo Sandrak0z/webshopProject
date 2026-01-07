@@ -491,3 +491,61 @@ select {
   width: 60px;
   height: 60px;
 }
+
+.admin-controls {
+  background-color: #fff3f2;
+  padding: 20px;
+  border: 2px dashed #dd2413;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.admin-controls h2 {
+  color: #dd2413;
+  margin-top: 0;
+}
+.admin-controls p {
+  margin-bottom: 30px;
+}
+
+.admin-btn {
+  text-decoration: none;
+  display: inline-block;
+  width: auto;
+  padding: 10px 20px;
+}
+
+.btn-dark {
+  background-color: #333;
+  margin-left: 10px;
+}
+
+.product-admin-actions {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: white;
+}
+
+.btn-edit {
+  color: #666;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.btn-edit:hover {
+  text-decoration: underline;
+}
+
+.btn-delete {
+  color: #dd2413;
+  font-size: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+}
