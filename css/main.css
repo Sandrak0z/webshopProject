@@ -605,3 +605,14 @@ select {
 #adminBtn:hover {
   background-color: #e3392a; /* Iets donkerder rood bij hover */
 }
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  min-height: 150px;
+  font-family: inherit;
+  resize: vertical;
+}

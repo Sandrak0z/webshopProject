@@ -2,6 +2,218 @@
 include_once(__DIR__ . "/Db.php");
 
 class Product {
+
+    private $productName;
+    private $brand;
+    private $price;
+    private $categoryId;
+    private $stock;
+    private $image;
+    private $colorOptions;
+    private $depthOptions;
+    private $description;
+
+
+    /**
+     * Get the value of productName
+     */ 
+    public function getProductName()
+    {
+        return $this->productName;
+    }
+
+    /**
+     * Set the value of productName
+     *
+     * @return  self
+     */ 
+    public function setProductName($productName)
+    {
+        if (empty($productName)) { throw new Exception("Productnaam mag niet leeg zijn."); }
+        $this->productName = $productName;
+        return $this;
+    }
+
+    /**
+     * Get the value of brand
+     */ 
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Set the value of brand
+     *
+     * @return  self
+     */ 
+    public function setBrand($brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of price
+     */ 
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set the value of price
+     *
+     * @return  self
+     */ 
+    public function setPrice($price)
+    {
+        if ($price < 0) { throw new Exception("Prijs mag niet negatief zijn."); }
+        $this->price = $price;
+        return $this;
+    }
+
+    /**
+     * Get the value of categoryId
+     */ 
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
+
+    /**
+     * Set the value of categoryId
+     *
+     * @return  self
+     */ 
+    public function setCategoryId($categoryId)
+    {
+        $this->categoryId = $categoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of stock
+     */ 
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set the value of stock
+     *
+     * @return  self
+     */ 
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of image
+     */ 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set the value of image
+     *
+     * @return  self
+     */ 
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of colorOptions
+     */ 
+    public function getColorOptions()
+    {
+        return $this->colorOptions;
+    }
+
+    /**
+     * Set the value of colorOptions
+     *
+     * @return  self
+     */ 
+    public function setColorOptions($colorOptions)
+    {
+        $this->colorOptions = $colorOptions;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of depthOptions
+     */ 
+    public function getDepthOptions()
+    {
+        return $this->depthOptions;
+    }
+
+    /**
+     * Set the value of depthOptions
+     *
+     * @return  self
+     */ 
+    public function setDepthOptions($depthOptions)
+    {
+        $this->depthOptions = $depthOptions;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription($description)
+    {
+        if (empty($description)) { throw new Exception("Beschrijving mag niet leeg zijn."); }
+        $this->description = $description;
+        return $this;
+    }
+
+    public function save() {
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("INSERT INTO Products (ProductName, Brand, Price, CategoryId, Stock, Image, ColorOptions, DepthOptions, Description) 
+        VALUES (:name, :brand, :price, :catId, :stock, :image, :colors, :depths, :description)");
+    
+        $stmt->bindValue(":name", $this->getProductName());
+        $stmt->bindValue(":brand", $this->getBrand());
+        $stmt->bindValue(":price", $this->getPrice());
+        $stmt->bindValue(":catId", $this->getCategoryId());
+        $stmt->bindValue(":stock", $this->getStock());
+        $stmt->bindValue(":image", $this->getImage());
+        $stmt->bindValue(":colors", $this->getColorOptions());
+        $stmt->bindValue(":depths", $this->getDepthOptions());
+        $stmt->bindValue(":description", $this->getDescription()); 
+    
+        return $stmt->execute();
+    }
+
+
+    
     public static function getAll(int $categoryId = 0): array {
         $conn = Db::getConnection();
         $sql = "SELECT * FROM Products";
@@ -42,7 +254,7 @@ class Product {
         
     }
 
-    public static function getDepthOptions(int $productId): array
+    public static function getDepthOptionsStatic(int $productId): array
     {
         $conn = Db::getConnection();
 

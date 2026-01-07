@@ -24,11 +24,15 @@ $categories = Category::getAll();
         <h1>Nieuw Product Toevoegen</h1>
         
         <form action="processAddProduct.php" method="POST" class="admin-form">
+            
             <div class="form-group">
                 <label for="name">Productnaam</label>
                 <input type="text" id="name" name="name" required placeholder="Bv keukentafel">
             </div>
-
+            <div class="form-group">
+                <label for="description">Productomschrijving</label>
+                <textarea id="description" name="description" required placeholder="Vertel iets over het product..."></textarea>
+            </div>
             <div class="form-group">
                 <label for="brand">Merk</label>
                 <input type="text" id="brand" name="brand" required placeholder="Bv VanHoecke ">
