@@ -447,83 +447,47 @@ select {
 }
 
 .order-box {
-  background-color: #ffffff;
-  border: 1px solid #e4e4e4;
-  margin-bottom: 25px;
-  padding: 0;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 15px;
   border-radius: 8px;
-  overflow: hidden;
 }
 
 .order-header {
-  background-color: #f8f8f8;
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-
-.order-header strong {
-  color: #333;
-}
-
-.order-header .total-amount {
-  color: #dd2413;
-  font-weight: bold;
-  font-size: 16px;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .order-details {
-  padding: 10px 20px;
+  margin-top: 10px;
 }
 
 .item-row {
   display: flex;
   gap: 15px;
   align-items: center;
-  border-bottom: 1px solid #f2f2f2;
-  padding: 15px 0;
-}
-
-.item-row:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
 }
 
 .item-row img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
   border-radius: 4px;
-  border: 1px solid #eee;
 }
 
 .item-row p {
-  margin: 0;
-  padding: 0;
+  font-size: 0.9em;
+  color: #666;
 }
 
-.item-row .item-info-text {
-  flex-grow: 1;
+.item-price-display {
+  margin-left: auto;
 }
-
-.item-row .item-price {
-  font-weight: bold;
-  color: #333;
+.profile-container {
+  display: block !important;
+  max-width: 800px;
 }
-
-.order-history-title {
-  margin: 30px 0 20px 0;
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 15px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  border: 1px solid #c3e6cb;
+.item-row img {
+  width: 60px;
+  height: 60px;
 }
