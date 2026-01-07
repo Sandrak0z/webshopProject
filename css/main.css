@@ -236,52 +236,6 @@ select {
   }
 }
 
-/* colors TEMPORARY
-
-
-*/
-input[type="radio"] {
-  appearance: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 1px solid #555;
-  display: inline-block;
-  margin: 5px;
-  transition: 0.2s ease;
-}
-input.black {
-  background-color: #000;
-}
-
-input.gray {
-  background-color: #999;
-}
-
-input.white {
-  background-color: #ffffff;
-}
-
-input.lightWood {
-  background-color: #d6c1a5;
-}
-input.darkWood {
-  background-color: #7a563b;
-}
-input.wood {
-  background-color: #a87352;
-}
-
-input[type="radio"]:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
-
-input[type="radio"]:checked {
-  outline: 3px solid #e24f4a;
-  outline-offset: 2px;
-}
 .error-message {
   color: red;
 }
@@ -428,4 +382,59 @@ input[type="radio"]:checked {
 #btnAddComment {
   align-self: flex-start;
   min-width: 150px;
+}
+
+.colors input[type="radio"] {
+  display: none;
+}
+.color-selector {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.color-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.color-option input {
+  display: none;
+}
+
+.swatch {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
+}
+
+.black {
+  background-color: #000000;
+}
+.white {
+  background-color: #ffffff;
+}
+.lightWood {
+  background-color: #d2b48c;
+}
+.wood {
+  background-color: #8b4513;
+}
+.gray {
+  background-color: #808080;
+}
+
+.color-option input:checked + .swatch {
+  border-color: #dd3131;
+  transform: scale(1.15);
+}
+
+.color-name {
+  font-size: 14px;
+  color: #666;
 }
