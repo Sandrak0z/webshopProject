@@ -1,27 +1,38 @@
 <?php
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['productId'])) {
-    $productId = intval($_POST['productId']);
-    
-    if (isset($_POST['quantity'])) {
-        $quantity = intval($_POST['quantity']);
-    } else {
-        $quantity = 1;
-    }
-    
-    if ($quantity < 1) { 
-        $quantity = 1; 
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!empty($_POST['productId'])) {
+        
+        $productId = (int)$_POST['productId'];
+        $quantity = (int)$_POST['quantity'];
+        
+        $color = "Standaard";
+        if (isset($_POST['color'])) {
+            $color = $_POST['color'];
+        }
 
-    if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
-    }
+        $depth = "Standaard";
+        if (isset($_POST['depth'])) {
+            $depth = $_POST['depth'];
+        }
 
-    if (isset($_SESSION['cart'][$productId])) {
-        $_SESSION['cart'][$productId] += $quantity;
-    } else {
-        $_SESSION['cart'][$productId] = $quantity;
+        $cartKey = $productId . "_" . $color . "_" . $depth;
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+        }
+
+        if (isset($_SESSION['cart'][$cartKey])) {
+            $_SESSION['cart'][$cartKey]['quantity'] = $_SESSION['cart'][$cartKey]['quantity'] + $quantity;
+        } else {
+            $item = array(
+                "productId" => $productId,
+                "quantity" => $quantity,
+                "color" => $color,
+                "depth" => $depth
+            );
+            $_SESSION['cart'][$cartKey] = $item;
+        }
     }
 }
 

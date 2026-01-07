@@ -95,10 +95,9 @@ class Product {
             $sql = "SELECT * FROM Products WHERE ProductId IN (" . $vraagtekens . ")";
             $stmt = $conn->prepare($sql);
     
-            $stmt->execute($ids);
-            $resultaten = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    
-            return $resultaten;
+            $stmt->execute(array_values($ids)); 
+            
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 }

@@ -2,14 +2,17 @@
 session_start();
 include_once(__DIR__ . "/classes/Product.php");
 
-if (isset($_SESSION['cart'])) {
-    $cart = $_SESSION['cart'];
-} else {
-    $cart = [];
-}
-$cartIds = array_keys($cart);
+$cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 
-$cartItems = Product::getCartDetails($cartIds);
+$realIds = [];
+foreach ($cart as $item) {
+    if (isset($item['productId'])) {
+        $realIds[] = (int)$item['productId'];
+    }
+}
+$realIds = array_unique($realIds);
+
+$dbProducts = !empty($realIds) ? Product::getCartDetails($realIds) : [];
 
 $totalPrice = 0;
 ?>
@@ -32,43 +35,51 @@ $totalPrice = 0;
                 <thead>
                     <tr>
                         <th>Product</th>
-                        <th style="text-align: center;">Aantal</th>
-                        <th style="text-align: right;">Prijs</th>
-                        <th style="text-align: right;">Actie</th>
+                        <th >Aantal</th>
+                        <th >Prijs</th>
+                        <th >Actie</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($cartItems)): ?>
-                        <?php foreach ($cartItems as $item): 
-                            $qty = $cart[$item['ProductId']]; 
-                            $subtotal = $item['Price'] * $qty;
-                            $totalPrice += $subtotal; 
+                    <?php if (!empty($cart)): ?>
+                        <?php foreach ($cart as $key => $details): 
+                            $pInfo = null;
+                            foreach ($dbProducts as $p) {
+                                if ($p['ProductId'] == $details['productId']) {
+                                    $pInfo = $p;
+                                    break;
+                                }
+                            }
+
+                            if ($pInfo):
+                                $subtotal = $pInfo['Price'] * $details['quantity'];
+                                $totalPrice += $subtotal; 
                         ?>
                         <tr>
                             <td class="product-info">
-                                <img src="<?= htmlspecialchars($item['Image']) ?>" alt="Product">
+                                <img src="<?= htmlspecialchars($pInfo['Image']) ?>" alt="Product">
                                 <div>
-                                    <p class="brand"><?= htmlspecialchars($item['Brand']) ?></p>
-                                    <p><strong><?= htmlspecialchars($item['ProductName']) ?></strong></p>
+                                    <p class="brand"><?= htmlspecialchars($pInfo['Brand']) ?></p>
+                                    <p><strong><?= htmlspecialchars($pInfo['ProductName']) ?></strong></p>
+                                    <p>
+                                        Kleur: <?= htmlspecialchars($details['color']) ?> | 
+                                        Diepte: <?= htmlspecialchars($details['depth']) ?> mm
+                                    </p>
                                 </div>
                             </td>
-                            <td style="text-align: center;">
-                                <span class="qty-display"><?= $qty ?>x</span>
+                            <td >
+                                <span class="qty-display"><?= $details['quantity'] ?>x</span>
                             </td>
-                            <td style="text-align: right;">
+                            <td >
                                 € <?= number_format($subtotal, 2, ',', '.') ?>
                             </td>
-                            <td style="text-align: right;">
-                                <a href="removeFromCart.php?id=<?= $item['ProductId'] ?>" class="remove-item">✕</a>
+                            <td id="removeFromCart">
+                                <a href="removeFromCart.php?key=<?= urlencode($key) ?>" class="remove-item">✕</a>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endif; endforeach; ?>
                     <?php else: ?>
-                        <tr>
-                            <td>
-                                Je winkelwagen is leeg.
-                            </td>
-                        </tr>
+                        <tr><td colspan="4">Je winkelwagen is leeg.</td></tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -82,7 +93,7 @@ $totalPrice = 0;
             </div>
             <div class="summary-row">
                 <span>Verzendkosten</span>
-                <span style="color: #24a746; font-weight: bold;">Gratis</span>
+                <span id="gratis">Gratis</span>
             </div>
             <hr>
             <div class="summary-row total">

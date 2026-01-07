@@ -438,3 +438,10 @@ select {
   font-size: 14px;
   color: #666;
 }
+#gratis {
+  color: #24a746;
+  font-weight: bold;
+}
+#removeFromCart {
+  text-align: center;
+}
