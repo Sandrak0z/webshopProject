@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once(__DIR__ . "/classes/Product.php");
+include_once(__DIR__ . "/classes/Order.php");
 
 if (!isset($_SESSION['userId'])) {
     header("Location: login.php");
@@ -18,6 +19,7 @@ foreach ($cart as $key => $details) {
     } else {
         $pId = $details;
     }
+
 
     $product = Product::getById($pId);
     
@@ -46,4 +48,11 @@ foreach ($cart as $key => $details) {
         
         $totalPrice = $totalPrice + ($prijsPerStuk * $aantal);
     }
+    
+}if (Order::save($userId, $itemsToSave, $totalPrice)) {
+    $_SESSION['cart'] = array(); 
+    header("Location: profile.php?order=success");
+    exit();
+} else {
+    echo "Fout bij het opslaan van de bestelling.";
 }
