@@ -428,6 +428,9 @@ select {
 .gray {
   background-color: #808080;
 }
+.darkWood {
+  background-color: #8b4513;
+}
 
 .color-option input:checked + .swatch {
   border-color: #dd3131;
@@ -548,4 +551,15 @@ select {
   border: none;
   cursor: pointer;
   margin-left: 10px;
+}
+
+#adminBtn {
+  margin-top: 20px;
+  width: 100%;
+}
+#adminContainer {
+  display: block;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
 }
