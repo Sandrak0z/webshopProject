@@ -13,7 +13,7 @@
         </div>
 
         <?php if ($_SESSION['role'] === 'admin'): ?>
-            <a href="admin.php" class="admin-link">Admin</a>
+            <a  class="admin-link">Admin</a>
         <?php endif; ?>
 
         <a href="logout.php" class="primarybtn">Uitloggen</a>

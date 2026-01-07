@@ -12,6 +12,7 @@ class Product {
     private $colorOptions;
     private $depthOptions;
     private $description;
+    private $id;
 
 
     /**
@@ -194,6 +195,26 @@ class Product {
         return $this;
     }
 
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function save() {
         $conn = Db::getConnection();
         $stmt = $conn->prepare("INSERT INTO Products (ProductName, Brand, Price, CategoryId, Stock, Image, ColorOptions, DepthOptions, Description) 
@@ -211,6 +232,13 @@ class Product {
     
         return $stmt->execute();
     }
+
+public static function deleteById(int $id) {
+    $conn = Db::getConnection();
+    $stmt = $conn->prepare("DELETE FROM Products WHERE ProductId = :id");
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
 
 
     
