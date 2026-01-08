@@ -1,17 +1,24 @@
 <?php
-
 session_start(); 
 $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 include_once(__DIR__ . "/classes/Category.php");
 include_once(__DIR__ . "/classes/Product.php");
 
 if (isset($_GET['cat'])) {
-    $categoryId = (int)$_GET['cat']; 
+    $categoryId = (int)$_GET['cat'];
 } else {
     $categoryId = 0;
 }
+
+if (isset($_GET['search'])) {
+    $search = $_GET['search'];
+} else {
+    $search = "";
+}
+
 $categories = Category::getAll();
-$products = Product::getAll($categoryId);
+$products = Product::getAll($categoryId, $search);
+
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -22,10 +29,10 @@ $products = Product::getAll($categoryId);
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/main.css" />
 </head>
+
 <?php include_once("nav.inc.php"); ?>
 
 <body>
-
     <div class="main">
         <div class="categorie">
             <h3>CATEGORIEËN</h3>
@@ -41,11 +48,22 @@ $products = Product::getAll($categoryId);
         </div>
 
         <div class="content">
+            <div class="searchContainer">
+                <form action="index.php" method="get">
+                    <input type="text" name="search" placeholder="Zoek een artikel..." value="<?= htmlspecialchars($search) ?>">
+                    <button type="submit" class="primary-btn">Zoeken</button>
+                    
+                    <?php if($categoryId > 0): ?>
+                        <input type="hidden" name="cat" value="<?= $categoryId ?>">
+                    <?php endif; ?>
+                </form>
+            </div>
+
             <?php if ($isAdmin): ?>
-                <div class="admin-controls" >
-                    <h2 >Admin Paneel</h2>
+                <div class="admin-controls">
+                    <h2>Admin Paneel</h2>
                     <p>Welkom Admin! Je kunt hier de shop beheren.</p>
-                    <a href="addProduct.php" class="primary-btn" >+ Product Toevoegen</a>
+                    <a href="addProduct.php" class="primary-btn">+ Product Toevoegen</a>
                 </div>
             <?php endif; ?>
 

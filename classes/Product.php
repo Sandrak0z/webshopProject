@@ -279,23 +279,28 @@ public static function deleteById(int $id) {
 
 
     
-    public static function getAll(int $categoryId = 0): array {
-        $conn = Db::getConnection();
-        $sql = "SELECT * FROM Products";
-        $array = [];
+public static function getAll(int $categoryId = 0, string $search = ""): array {
+    $conn = Db::getConnection();
+    
+    $sql = "SELECT * FROM Products WHERE 1=1";
+    $params = [];
 
-        if ($categoryId > 0) {
-            $sql .= " WHERE CategoryId = :cat";
-            $array[':cat'] = $categoryId;
-        }
-
-        $sql .= " ORDER BY ProductName";
-
-        $stmt = $conn->prepare($sql);
-        $stmt->execute($array);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if ($categoryId > 0) {
+        $sql .= " AND CategoryId = :cat";
+        $params[':cat'] = $categoryId;
     }
+
+    if (!empty($search)) {
+        $sql .= " AND (ProductName LIKE :search OR Description LIKE :search)";
+        $params[':search'] = "%$search%";
+    }
+
+    $sql .= " ORDER BY ProductName";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($params);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
     public static function getById(int $id): ?array
     {
         $conn = Db::getConnection();

@@ -603,7 +603,7 @@ select {
 }
 
 #adminBtn:hover {
-  background-color: #e3392a; /* Iets donkerder rood bij hover */
+  background-color: #e3392a;
 }
 .form-group textarea {
   width: 100%;
@@ -683,4 +683,29 @@ select {
   padding: 30px;
   border-radius: 8px;
   border: 1px solid #e4e4e4;
+}
+.searchContainer {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+}
+
+.searchContainer form {
+  display: flex;
+  gap: 10px;
+}
+
+.searchContainer input {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.searchContainer .primary-btn {
+  padding: 0 25px;
+  height: 45px;
 }

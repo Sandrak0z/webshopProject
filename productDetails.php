@@ -5,7 +5,7 @@ include_once(__DIR__ . "/classes/Comment.php");
 
 $productId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $product = Product::getById($productId);
-//$allComments = Comment::getAllByProductId($productId);
+$allComments = Comment::getAllByProductId($productId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +41,10 @@ $product = Product::getById($productId);
                 <?php else: ?>
                     <span class="out-stock">• Niet op voorraad</span>
                 <?php endif; ?>
+            </div>
+            <div class="product-description">
+                <h3>Beschrijving</h3>
+                <p><?= htmlspecialchars($product['Description']) ?></p>
             </div>
 
             <form method="post" action="addToCart.php">
