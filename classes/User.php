@@ -105,7 +105,7 @@ class User {
 
         $statement = $conn->prepare("
             INSERT INTO user (firstName, lastName, email, password, role, coins) 
-            VALUES (:firstname, :lastname, :email, :password,'user', 100.00)
+            VALUES (:firstname, :lastname, :email, :password,'user', 1000.00)
         ");
 
         $firstname = $this->getFirstname();
