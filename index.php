@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start(); 
 $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 include_once(__DIR__ . "/classes/Category.php");
