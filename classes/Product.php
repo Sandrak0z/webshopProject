@@ -70,7 +70,8 @@ class Product {
      */ 
     public function setPrice($price)
     {
-        if ($price < 0) { throw new Exception("Prijs mag niet negatief zijn."); }
+        if ($price < 0) { 
+            throw new Exception("Prijs mag niet negatief zijn."); }
         $this->price = $price;
         return $this;
     }
@@ -150,8 +151,17 @@ class Product {
      */ 
     public function setColorOptions($colorOptions)
     {
-        $this->colorOptions = $colorOptions;
+        $allowedColors = ['black', 'white', 'gray', 'lightWood', 'wood', 'darkWood'];
+        $inputColors = explode(',', $colorOptions);
 
+        foreach ($inputColors as $color) {
+            $trimmed = trim($color);
+            if (!empty($trimmed) && !in_array($trimmed, $allowedColors)) {
+                throw new Exception("Kleur '$trimmed' is ongeldig. Kies uit: " . implode(', ', $allowedColors));
+            }
+        }
+
+        $this->colorOptions = $colorOptions;
         return $this;
     }
 

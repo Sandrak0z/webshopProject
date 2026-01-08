@@ -1,4 +1,5 @@
 <?php
+$isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 session_start();
 include_once(__DIR__ . "/classes/Product.php");
 

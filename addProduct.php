@@ -1,11 +1,37 @@
 <?php
 session_start();
 include_once(__DIR__ . "/classes/Category.php");
+include_once(__DIR__ . "/classes/Product.php");
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: index.php");
     exit();
 }
+$error = "";
+
+if (!empty($_POST)) {
+    try {
+
+        $p = new Product();
+        $p->setProductName($_POST['name']);
+        $p->setBrand($_POST['brand']);
+        $p->setPrice($_POST['price']);
+        $p->setCategoryId($_POST['categoryId']);
+        $p->setStock($_POST['stock']);
+        $p->setImage($_POST['image']);
+        $p->setColorOptions($_POST['colors']);
+        $p->setDepthOptions($_POST['depths']);
+        $p->setDescription($_POST['description']);
+
+        if ($p->save()) {
+            header("location: index.php");
+            exit();
+        }
+    } catch (Exception $e) {
+        $error = $e->getMessage(); 
+    }
+}
+
 
 $categories = Category::getAll();
 ?>
@@ -23,7 +49,12 @@ $categories = Category::getAll();
     <div class="container" id="adminContainer">
         <h1>Nieuw Product Toevoegen</h1>
         
-        <form action="processAddProduct.php" method="POST" class="admin-form">
+        <form method="POST" class="admin-form">
+        <?php if(!empty($error)): ?>
+        <div class="alert" >
+            <strong>Oeps!</strong> <?= htmlspecialchars($error); ?>
+        </div>
+    <?php endif; ?>
             
             <div class="form-group">
                 <label for="name">Productnaam</label>

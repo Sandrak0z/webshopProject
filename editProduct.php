@@ -3,18 +3,23 @@ session_start();
 include_once(__DIR__ . "/classes/Product.php");
 include_once(__DIR__ . "/classes/Category.php");
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("location: index.php");
+    exit();
+}
+
 if (!empty($_POST)) {
     try {
         $p = new Product();
-        $p->setId($_POST['id']); 
-        $p->setProductName($_POST['name']);
-        $p->setBrand($_POST['brand']);
-        $p->setPrice($_POST['price']);
-        $p->setStock($_POST['stock']);
-        $p->setCategoryId($_POST['categoryId']);
-        $p->setDescription($_POST['description']);
-        $p->setColorOptions($_POST['colors']); 
-        $p->setDepthOptions($_POST['depths']);
+        $p->setId((int)$_POST['id']); 
+        $p->setProductName(trim($_POST['name']));
+        $p->setBrand(trim($_POST['brand']));
+        $p->setPrice((float)$_POST['price']);
+        $p->setStock((int)$_POST['stock']);
+        $p->setCategoryId((int)$_POST['categoryId']);
+        $p->setDescription(trim($_POST['description']));
+        $p->setColorOptions(trim($_POST['colors'])); 
+        $p->setDepthOptions(trim($_POST['depths']));
         
         
         if ($p->update()) {
@@ -25,10 +30,7 @@ if (!empty($_POST)) {
         }
     }
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("location: index.php");
-    exit();
-}
+
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 $product = Product::getById($id); 

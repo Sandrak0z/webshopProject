@@ -1,15 +1,15 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 session_start(); 
 $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] === 'admin');
 include_once(__DIR__ . "/classes/Category.php");
 include_once(__DIR__ . "/classes/Product.php");
 
-$categoryId = filter_input(INPUT_GET, 'cat', FILTER_VALIDATE_INT) ?? 0;
-
+if (isset($_GET['cat'])) {
+    $categoryId = (int)$_GET['cat']; 
+} else {
+    $categoryId = 0;
+}
 $categories = Category::getAll();
 $products = Product::getAll($categoryId);
 ?>

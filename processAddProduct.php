@@ -10,15 +10,16 @@ if (!empty($_POST)) {
     try {
         $p = new Product();
         
-        $p->setProductName($_POST['name']);
-        $p->setBrand($_POST['brand']);
-        $p->setPrice($_POST['price']);
-        $p->setCategoryId($_POST['categoryId']);
-        $p->setStock($_POST['stock']);
-        $p->setImage($_POST['image']);
-        $p->setColorOptions($_POST['colors']);
-        $p->setDepthOptions($_POST['depths']);
-        $p->setDescription($_POST['description']);
+        $p->setProductName(trim($_POST['name']));
+        $p->setBrand(trim($_POST['brand']));
+        $p->setPrice((float)$_POST['price']);
+        $p->setCategoryId((int)$_POST['categoryId']);
+        $p->setStock((int)$_POST['stock']);
+        $imagePath = trim($_POST['image']);
+        $p->setImage($imagePath);
+        $p->setColorOptions(trim($_POST['colors']));
+        $p->setDepthOptions(trim($_POST['depths']));
+        $p->setDescription(trim($_POST['description']));
 
         $success = $p->save();
 
@@ -28,6 +29,6 @@ if (!empty($_POST)) {
         }
     } catch (Exception $e) {
         $error = $e->getMessage();
-        echo "fout bij toevoegen " . $error;
+        echo "fout bij toevoegen " . htmlspecialchars($error);
     }
 }
