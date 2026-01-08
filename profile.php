@@ -1,10 +1,39 @@
 <?php
 session_start();
 include_once(__DIR__ . "/classes/Order.php");
+include_once(__DIR__ . "/classes/User.php"); 
 
 if (!isset($_SESSION['userId'])) {
     header("Location: login.php");
     exit();
+}
+
+$error = "";
+$success = "";
+
+if (!empty($_POST) && isset($_POST['newPassword'])) {
+    try {
+        $userId = $_SESSION['userId'];
+        $currentPassword = $_POST['currentPassword'];
+        $newPassword = $_POST['newPassword'];
+        
+        if (!User::verifyPassword($userId, $currentPassword)) {
+            throw new Exception("Oei, er liep iets mis. je huidig wachtwoord is onjuist.");
+        }
+
+        if (strlen($newPassword) < 7) {
+            throw new Exception("Nieuw wachtwoord moet minstens 7 tekens hebben.");
+        }
+
+        $user = new User();
+        $user->setId($userId);
+        
+        if ($user->updatePassword($newPassword)) {
+            $success = "Je wachtwoord is gewijzigd!";
+        }
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    }
 }
 
 $orders = Order::getHistory($_SESSION['userId']);
@@ -24,9 +53,22 @@ $orders = Order::getHistory($_SESSION['userId']);
     <div class="profile-container">
         <h1>Mijn profiel</h1>
 
-        <section class="admin-form" style="margin-bottom: 50px;">
+        <section class="passwordChange" style="margin-bottom: 50px;">
             <h2>Wachtwoord wijzigen</h2>
             <form action="#" method="post">
+
+            <?php if(!empty($error)): ?>
+                <div class="alert">
+                    <?= ($error); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if(!empty($success)): ?>
+                <div class="success">
+                    <?= ($success); ?>
+                </div>
+            <?php endif; ?>
+
                 <div class="form-group">
                     <label for="currentPassword">Huidig wachtwoord</label>
                     <input type="password" name="currentPassword" id="currentPassword" placeholder="********">
@@ -41,7 +83,7 @@ $orders = Order::getHistory($_SESSION['userId']);
             </form>
         </section>
 
-        <section class="history-section">
+        <section class="historySection">
             <h2>Mijn bestelgeschiedenis</h2>
         <?php if (empty($orders)): ?>
             <p>Je hebt nog geen bestellingen geplaatst.</p>
@@ -74,7 +116,7 @@ $orders = Order::getHistory($_SESSION['userId']);
                                         <?php endif; ?>
                                     </p>
                                 </div>
-                                <div class="item-price-display">
+                                <div class="item-price">
                                     €<?= number_format($item['Price'], 2, ',', '.') ?>
                                 </div>
                             </div>
