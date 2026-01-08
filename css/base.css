@@ -1,16 +1,22 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  padding-top: 80px;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
+  top: 0;
+  left: 0;
+  width: 100%;
   align-items: center;
-  background-color: #ffffff;
+  position: fixed;
   color: rgb(28, 23, 23);
+  background-color: white;
   padding: 20px 0px;
   border-bottom: 0.5px solid rgb(154, 154, 154);
+  z-index: 1000;
 }
 
 .logo img {
