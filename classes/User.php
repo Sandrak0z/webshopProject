@@ -115,14 +115,23 @@ class User {
     }
 
 
+
     public function save() {
         $this->validate();
         $options = [
-            'cost' => 15,
+            'cost' => 12,
         ];
 
+        $email = $this->getEmail();
+
         $conn = Db::getConnection();
-        
+
+        $Check = $conn->prepare("SELECT customerId FROM user WHERE email = :email");
+        $Check->bindValue(":email", $email);
+        $Check->execute();
+        if($Check->fetch()) {
+            throw new Exception("Dit e-mailadres is al in gebruik");
+        } 
 
         $statement = $conn->prepare("
             INSERT INTO user (firstName, lastName, email, password, role, coins) 
@@ -152,7 +161,7 @@ class User {
     }
     public function updatePassword($newPassword) {
         $conn = Db::getConnection();
-        $options = ['cost' => 15];
+        $options = ['cost' => 12];
         $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT, $options);
     
         $stmt = $conn->prepare("UPDATE user SET password = :password WHERE customerId = :id");

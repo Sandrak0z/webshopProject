@@ -20,7 +20,7 @@ $totalPrice = 0;
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Winkelwagen - Van Hoecke</title>
+    <title>Winkelwagen Van Hoecke</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/cart.css">
@@ -92,10 +92,7 @@ $totalPrice = 0;
 
         <div class="details cart-summary">
             <h2>Overzicht</h2>
-            <div class="summary-row">
-                <span>Subtotaal</span>
-                <span>€ <?= number_format($totalPrice, 2, ',', '.') ?></span>
-            </div>
+            
             <div class="summary-row">
                 <span>Verzendkosten</span>
                 <span id="gratis">Gratis</span>
