@@ -190,13 +190,21 @@ class User {
             return $user;
         } 
         }
-    public static function getById($id) {
-        $conn = Db::getConnection();
-        $stmt = $conn->prepare("SELECT * FROM user WHERE customerId = :id"); 
-        $stmt->bindValue(":id", $id);
-        $stmt->execute(); 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+        public static function getById($id) {
+            $conn = Db::getConnection();
+            
+            $stmt = $conn->prepare("SELECT * FROM Products WHERE ProductId = :id");
+            $stmt->bindValue(":id", $id);
+            $stmt->execute();
+            
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            if ($product === false) {
+                return null; 
+            }
+        
+            return $product;
+        }
     public static function updateCoins($userId, $amount) {
         $conn = Db::getConnection();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -215,4 +223,5 @@ class User {
             die(" fout op Railway: " . $e->getMessage());
         }
     }
+    
 }
