@@ -42,7 +42,7 @@ class User {
      */
 
     public function setPassword($password) {
-        if (strlen($password) < 7) {
+        if (strlen($password) < 3) {
             throw new Exception("Wachtwoord moet minstens 3 tekens hebben.");
         }
         $this->password = $password;
