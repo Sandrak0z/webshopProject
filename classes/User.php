@@ -15,14 +15,21 @@ class User {
      * / Set the value of firstname
      */
     public function setFirstname($firstname) {
+        if (empty(trim($firstname))) {
+            throw new Exception("Voornaam mag niet leeg zijn.");
+        }
         $this->firstname = $firstname;
+        return $this;
     }
     /**
      * / Set the value of lastname
      */
     public function setLastname($lastname) {
+        if (empty(trim($lastname))) {
+            throw new Exception("Achternaam mag niet leeg zijn.");
+        }
         $this->lastname = $lastname;
-    }
+        return $this;    }
     /**
      * / Set the value of email
      */
@@ -36,9 +43,10 @@ class User {
 
     public function setPassword($password) {
         if (strlen($password) < 7) {
-            throw new Exception("Wachtwoord moet minstens 7 tekens hebben.");
+            throw new Exception("Wachtwoord moet minstens 3 tekens hebben.");
         }
         $this->password = $password;
+        return $this;
     }
     /**
      * Set the value of confirmpassword
