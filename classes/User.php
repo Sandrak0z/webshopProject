@@ -199,20 +199,19 @@ class User {
     }
     public static function updateCoins($userId, $amount) {
         $conn = Db::getConnection();
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
         try {
             $stmt = $conn->prepare("UPDATE user SET coins = coins + :amount WHERE customerId = :id");
-            $stmt->bindValue(":amount", $amount, PDO::PARAM_INT);
+            $stmt->bindValue(":amount", $amount); 
             $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
             $stmt->execute();
             
             if ($stmt->rowCount() === 0) {
-                die("gebruiker met ID $userId niet gevonden in tabel 'user'.");
+                $check = $conn->query("SELECT customerId FROM user LIMIT 1")->fetch();
+                die("code zoekt ID " . htmlspecialchars($userId) . ", maar database heeft bv ID " . ($check['customerId'] ?? 'GEEN DATA') . ". Log uit en opnieuw in.");
             }
             return true;
         } catch (PDOException $e) {
-            die(" fout op Railway: " . $e->getMessage());
+            die("Database fout op Railway: " . $e->getMessage());
         }
     }
 }

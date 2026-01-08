@@ -56,14 +56,13 @@ if ($user['coins'] < $totalPrice) {
     exit();
 }
 
-if (User::updateCoins($userId, $totalPrice * -1)) { 
+if (User::updateCoins($userId, -$totalPrice)) { 
     if (Order::save($userId, $itemsToSave, $totalPrice)) {
         $_SESSION['cart'] = []; 
         header("Location: profile.php?order=success");
         exit();
-    } else {
-        echo "Fout bij opslaan bestelling.";
     }
-} else {
+}
+else {
     echo "Fout bij betaling.";
 }
