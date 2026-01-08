@@ -7,6 +7,8 @@ class User {
     private $email;
     private $password;
     private $confirmpassword;
+    private $id;
+
 
 
     /**
@@ -79,6 +81,25 @@ class User {
     public function getEmail() {
         return $this->email;
     }
+    
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    /**
+     * Set the value of id
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    
 
 
     public function validate() {
@@ -99,9 +120,9 @@ class User {
         $options = [
             'cost' => 15,
         ];
-        //conn
+
         $conn = Db::getConnection();
-        //insert query
+        
 
         $statement = $conn->prepare("
             INSERT INTO user (firstName, lastName, email, password, role, coins) 
@@ -122,6 +143,24 @@ class User {
         $result= $statement->execute();
         return $result;
     }
+    public static function verifyPassword($userId, $password) {
+        $user = self::getById($userId);
+        if ($user && password_verify($password, $user['password'])) {
+            return true;
+        }
+        return false;
+    }
+    public function updatePassword($newPassword) {
+        $conn = Db::getConnection();
+        $options = ['cost' => 15];
+        $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT, $options);
+    
+        $stmt = $conn->prepare("UPDATE user SET password = :password WHERE customerId = :id");
+        $stmt->bindValue(":password", $passwordHash);
+        $stmt->bindValue(":id", $this->getId()); 
+        
+        return $stmt->execute();
+    }
     public static function login($email, $password) {
         $conn = Db::getConnection();
         $stmt = $conn->prepare("SELECT * FROM user WHERE email = :email");
@@ -134,18 +173,18 @@ class User {
             return $user;
         } 
         }
-        public static function getById($id) {
-            $conn = Db::getConnection();
-            $stmt = $conn->prepare("SELECT * FROM user WHERE customerId = :id"); 
-            $stmt->bindValue(":id", $id);
-            $stmt->execute(); 
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-        public static function updateCoins($userId, $amount) {
-            $conn = Db::getConnection();
-            $stmt = $conn->prepare("UPDATE user SET coins = coins + :amount WHERE customerId = :id");
-            $stmt->bindValue(":amount", $amount);
-            $stmt->bindValue(":id", $userId);
-            return $stmt->execute();
-        }
+    public static function getById($id) {
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("SELECT * FROM user WHERE customerId = :id"); 
+        $stmt->bindValue(":id", $id);
+        $stmt->execute(); 
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    public static function updateCoins($userId, $amount) {
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("UPDATE user SET coins = coins + :amount WHERE customerId = :id");
+        $stmt->bindValue(":amount", $amount);
+        $stmt->bindValue(":id", $userId);
+        return $stmt->execute();
+    }
+}
