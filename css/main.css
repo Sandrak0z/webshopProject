@@ -652,3 +652,18 @@ select {
   object-fit: cover;
   border-radius: 4px;
 }
+.alert {
+  padding: 15px 20px;
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+.alert strong {
+  text-transform: uppercase;
+  color: #721c24;
+}

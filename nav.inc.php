@@ -1,4 +1,9 @@
-<nav class="navbar">
+<?php
+if (isset($_SESSION['userId'])) {
+    include_once(__DIR__ . "/classes/User.php");
+    $currentUser = User::getById($_SESSION['userId']);
+}
+?><nav class="navbar">
       <div class="logo"><a href="index.php"><img src="img/logoVnhoecke.png" alt="logo" /></a></div>
       <div class="center-nav">
         <a href="index.php">Shop</a>
@@ -6,10 +11,10 @@
         <a href="https://www.vanhoecke.be/nl/services">Services</a>
       </div>
       <div class="right-nav">
-      <?php if (isset($_SESSION['userId'])): ?>
+      <?php if (isset($currentUser)): ?>
         <div class="user-info">
-            <span class="userName">Welkom, <strong><?php echo htmlspecialchars($_SESSION['user_name']); ?></strong></span>
-            <span cclass="userCoins">€ <?php echo $_SESSION['coins']; ?></span>
+            <span class="userName">Welkom, <strong><?= htmlspecialchars($currentUser['firstName']); ?></strong></span>
+            <span class="userCoins">€ <?= number_format($currentUser['coins'], 2); ?></span>
         </div>
 
         <?php if ($_SESSION['role'] === 'admin'): ?>

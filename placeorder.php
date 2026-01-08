@@ -2,7 +2,8 @@
 session_start();
 include_once(__DIR__ . "/classes/Product.php");
 include_once(__DIR__ . "/classes/Order.php");
-
+include_once(__DIR__ . "/classes/User.php");
+ 
 if (!isset($_SESSION['userId'])) {
     header("Location: login.php");
     exit();
@@ -49,10 +50,22 @@ foreach ($cart as $key => $details) {
         $totalPrice = $totalPrice + ($prijsPerStuk * $aantal);
     }
     
-}if (Order::save($userId, $itemsToSave, $totalPrice)) {
-    $_SESSION['cart'] = array(); 
-    header("Location: profile.php?order=success");
+}$user = User::getById($userId);
+
+if ($user['coins'] < $totalPrice) {
+    header("Location: cart.php?error=payment_error");
     exit();
+}
+
+if (User::updateCoins($userId, -$totalPrice)) {
+    if (Order::save($userId, $itemsToSave, $totalPrice)) {
+        $_SESSION['cart'] = array(); 
+        header("Location: profile.php?order=success");
+        exit();
+    } else {
+        
+        echo "Fout bij het opslaan van de bestelling.";
+    }
 } else {
-    echo "Fout bij het opslaan van de bestelling.";
+    echo "Fout bij de betaling.";
 }

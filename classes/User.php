@@ -134,4 +134,18 @@ class User {
             return $user;
         } 
         }
+        public static function getById($id) {
+            $conn = Db::getConnection();
+            $stmt = $conn->prepare("SELECT * FROM user WHERE customerId = :id"); 
+            $stmt->bindValue(":id", $id);
+            $stmt->execute(); 
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        public static function updateCoins($userId, $amount) {
+            $conn = Db::getConnection();
+            $stmt = $conn->prepare("UPDATE user SET coins = coins + :amount WHERE customerId = :id");
+            $stmt->bindValue(":amount", $amount);
+            $stmt->bindValue(":id", $userId);
+            return $stmt->execute();
+        }
     }

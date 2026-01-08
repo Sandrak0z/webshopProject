@@ -27,6 +27,11 @@ $totalPrice = 0;
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 'payment_error'): ?>
+    <div class="alert">
+        Oei! Je hebt niet genoeg <strong>euros€</strong> om deze aankoop te voltooien.
+    </div>
+<?php endif; ?>
 
     <div class="container cart-page">
         <div class="details cart-items">
