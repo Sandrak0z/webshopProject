@@ -3,6 +3,28 @@ session_start();
 include_once(__DIR__ . "/classes/Product.php");
 include_once(__DIR__ . "/classes/Category.php");
 
+if (!empty($_POST)) {
+    try {
+        $p = new Product();
+        $p->setId($_POST['id']); 
+        $p->setProductName($_POST['name']);
+        $p->setBrand($_POST['brand']);
+        $p->setPrice($_POST['price']);
+        $p->setStock($_POST['stock']);
+        $p->setCategoryId($_POST['categoryId']);
+        $p->setDescription($_POST['description']);
+        $p->setColorOptions($_POST['colors']); 
+        $p->setDepthOptions($_POST['depths']);
+        
+        
+        if ($p->update()) {
+            header("Location: index.php");
+            exit();
+        }}catch (Exception $e) {
+            $error = $e->getMessage();
+        }
+    }
+
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("location: index.php");
     exit();
@@ -67,6 +89,23 @@ if (!$product) {
                 <label for="description">Beschrijving</label>
                 <textarea id="description" name="description" required><?= htmlspecialchars($product['Description']) ?></textarea>
             </div>
+
+            <div class="form-group">
+                <label for="image">Afbeelding URL</label>
+                <input type="text" id="image" name="image" placeholder="img/productImage1.jpg ">
+            </div>
+
+            <div class="form-group">
+                <label for="colors">Beschikbare Kleuren (scheid met komma)</label>
+                <input type="text" id="colors" name="colors" placeholder="black, white, lightWood">
+                <small>Kies uit volgende kleuren: black, white, gray, lightWood, wood, darkWood  .</small>
+            </div>
+
+            <div class="form-group">
+                <label for="depths">Beschikbare Dieptes (scheid met komma)</label>
+                <input type="text" id="depths" name="depths" placeholder="450, 500, 550">
+            </div>
+            
 
             <div class="form-actions">
                 <button type="submit" class="primary-btn">wijzigingen opslaan</button>

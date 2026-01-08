@@ -232,6 +232,33 @@ class Product {
     
         return $stmt->execute();
     }
+    public function update() {
+        $conn = Db::getConnection();
+        $stmt = $conn->prepare("UPDATE Products SET 
+        ProductName = :name, 
+        Brand = :brand, 
+        Price = :price, 
+        CategoryId = :catId, 
+        Stock = :stock, 
+        Image = :image,
+        ColorOptions = :colors,
+        DepthOptions = :depths,
+        Description = :description 
+        WHERE ProductId = :id");
+
+    $stmt->bindValue(":name", $this->getProductName());
+    $stmt->bindValue(":brand", $this->getBrand());
+    $stmt->bindValue(":price", $this->getPrice());
+    $stmt->bindValue(":catId", $this->getCategoryId());
+    $stmt->bindValue(":stock", $this->getStock());
+    $stmt->bindValue(":image", $this->getImage());
+    $stmt->bindValue(":colors", $this->getColorOptions());
+    $stmt->bindValue(":depths", $this->getDepthOptions());
+    $stmt->bindValue(":description", $this->getDescription());
+    $stmt->bindValue(":id", $this->getId(), PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
 
 public static function deleteById(int $id) {
     $conn = Db::getConnection();
