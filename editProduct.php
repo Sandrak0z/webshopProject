@@ -16,6 +16,7 @@ if (!empty($_POST)) {
         $p->setBrand(trim($_POST['brand']));
         $p->setPrice((float)$_POST['price']);
         $p->setStock((int)$_POST['stock']);
+        $p->setImage(trim($_POST['image']));
         $p->setCategoryId((int)$_POST['categoryId']);
         $p->setDescription(trim($_POST['description']));
         $p->setColorOptions(trim($_POST['colors'])); 

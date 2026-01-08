@@ -51,7 +51,7 @@ $products = Product::getAll($categoryId, $search);
             <div class="searchContainer">
                 <form action="index.php" method="get">
                     <input type="text" name="search" placeholder="Zoek een artikel..." value="<?= htmlspecialchars($search) ?>">
-                    <button type="submit" class="primary-btn">Zoeken</button>
+                    <button type="submit" class="search">Zoeken</button>
                     
                     <?php if($categoryId > 0): ?>
                         <input type="hidden" name="cat" value="<?= $categoryId ?>">
