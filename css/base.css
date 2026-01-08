@@ -18,6 +18,7 @@ body {
   width: 160px;
   height: auto;
   display: block;
+  padding-bottom: 1vh;
 }
 
 #shoppingcart {
@@ -27,7 +28,7 @@ body {
 
 .navbar .center-nav {
   flex: 2;
-  text-align: right;
+  text-align: center;
 }
 
 .navbar .center-nav a {
@@ -87,4 +88,9 @@ body {
   flex-direction: column;
   text-align: right;
   line-height: 1.2;
+}
+.navbar a {
+  text-decoration: none;
+  color: black;
+  padding-left: 5px;
 }

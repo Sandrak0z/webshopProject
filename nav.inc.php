@@ -1,9 +1,9 @@
 <nav class="navbar">
       <div class="logo"><a href="index.php"><img src="img/logoVnhoecke.png" alt="logo" /></a></div>
       <div class="center-nav">
+        <a href="index.php">Shop</a>
         <a href="https://www.vanhoecke.be/nl/producten">Producten</a>
         <a href="https://www.vanhoecke.be/nl/services">Services</a>
-        <a href="#">Shop</a>
       </div>
       <div class="right-nav">
       <?php if (isset($_SESSION['userId'])): ?>
@@ -22,6 +22,8 @@
             <img src="img/pct_aanmelden.png" alt="Aanmelden">
         </a>
     <?php endif; ?>
+
+    <a href="profile.php" class="profile-link">Profiel</a>
 
     <a href="cart.php" class="primarybtn">
       <img id="shoppingcart" src="img/pct_winkelmandje.png" alt="Winkelmandje">

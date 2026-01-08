@@ -22,8 +22,27 @@ $orders = Order::getHistory($_SESSION['userId']);
 <body>
 
     <div class="profile-container">
-        <h1>Mijn Bestelgeschiedenis</h1>
+        <h1>Mijn profiel</h1>
 
+        <section class="admin-form" style="margin-bottom: 50px;">
+            <h2>Wachtwoord wijzigen</h2>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="currentPassword">Huidig wachtwoord</label>
+                    <input type="password" name="currentPassword" id="currentPassword" placeholder="********">
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Nieuw wachtwoord</label>
+                    <input type="password" name="newPassword" id="newPassword" placeholder="Nieuw wachtwoord">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn" style="width: auto;">Wachtwoord bijwerken</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="history-section">
+            <h2>Mijn bestelgeschiedenis</h2>
         <?php if (empty($orders)): ?>
             <p>Je hebt nog geen bestellingen geplaatst.</p>
         <?php else: ?>
@@ -64,6 +83,7 @@ $orders = Order::getHistory($_SESSION['userId']);
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
+        </section>
     </div>
 </body>
 </html>
