@@ -616,3 +616,21 @@ select {
   font-family: inherit;
   resize: vertical;
 }
+
+.editContainer {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.editContainer h1 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #333;
+}
+
+.editContainer a {
+  text-decoration: none;
+  padding: 50px;
+  color: #000000;
+}

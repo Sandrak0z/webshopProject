@@ -48,7 +48,7 @@ if (!$product) {
 </head>
 <body>
     <?php include_once("nav.inc.php"); ?>
-    <div class="main">
+    <div class="editContainer">
         <h1>Bewerk artikel: <?= htmlspecialchars($product['ProductName']) ?></h1>
         
         <form action="" method="post">
