@@ -3,8 +3,8 @@ session_start();
 include_once(__DIR__ . "/classes/Product.php");
 include_once(__DIR__ . "/classes/Order.php");
 include_once(__DIR__ . "/classes/User.php");
- 
-if (!isset($_SESSION['userId'])) {
+
+if (!isset($_SESSION['userId']) || empty($_SESSION['cart'])) {
     header("Location: login.php");
     exit();
 }
@@ -12,60 +12,58 @@ if (!isset($_SESSION['userId'])) {
 $cart = $_SESSION['cart'];
 $userId = $_SESSION['userId'];
 $totalPrice = 0;
-$itemsToSave = array(); 
+$itemsToSave = []; 
 
-foreach ($cart as $key => $details) {
+foreach ($cart as $details) {
     if (is_array($details)) {
         $pId = $details['productId'];
     } else {
         $pId = $details;
-    }
-
-
-    $product = Product::getById($pId);
+    }    $product = Product::getById($pId);
     
-    if ($product != null) {
-        $prijsPerStuk = $product['Price'];
-        
-        $kleur = "Standaard";
-        $diepte = "Standaard";
-        $aantal = 1;
+    if ($product) {
+        $aantal = isset($details['quantity']) ? (int)$details['quantity'] : 1;
+        $prijsPerStuk = (float)$product['Price'];
 
-        if (is_array($details)) {
+        if (isset($details['color'])) {
             $kleur = $details['color'];
-            $diepte = $details['depth'];
-            $aantal = $details['quantity'];
+        } else {
+            $kleur = "Standaard";
         }
 
-        $newItem = array(
+        if (isset($details['depth'])) {
+            $diepte = $details['depth'];
+        } else {
+            $diepte = "Standaard";
+        }
+
+        $itemsToSave[] = [
             'productId' => $pId,
             'price'     => $prijsPerStuk,
             'color'     => $kleur,
             'depth'     => $diepte,
             'quantity'  => $aantal
-        );
+        ];
         
-        $itemsToSave[] = $newItem;
-        
-        $totalPrice = $totalPrice + ($prijsPerStuk * $aantal);
+        $totalPrice += ($prijsPerStuk * $aantal);
     }
-    
-}$user = User::getById($userId);
+}
+
+$user = User::getById($userId);
 
 if ($user['coins'] < $totalPrice) {
     header("Location: cart.php?error=payment_error");
     exit();
 }
 
-if (User::updateCoins($userId, -$totalPrice)) {
+if (User::updateCoins($userId, $totalPrice * -1)) { 
     if (Order::save($userId, $itemsToSave, $totalPrice)) {
-        $_SESSION['cart'] = array(); 
+        $_SESSION['cart'] = []; 
         header("Location: profile.php?order=success");
         exit();
     } else {
-        
-        echo "Fout bij het opslaan van de bestelling.";
+        echo "Fout bij opslaan bestelling.";
     }
 } else {
-    echo "Fout bij de betaling.";
+    echo "Fout bij betaling.";
 }
